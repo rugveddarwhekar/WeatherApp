@@ -9,7 +9,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,21 +18,30 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     private var weatherUrl = ""
-    var apiID = ""
+    var apiID = "d88f4a2c24c041f7b4e5c6621bb834e2"
 
-    private lateinit var textViewWeather: TextView
+    private lateinit var textViewTemp: TextView
+    private lateinit var textViewCity: TextView
+    private lateinit var textViewRain: TextView
+    private lateinit var textViewSnow: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        textViewWeather = findViewById(R.id.tv_weather)
+        textViewTemp = findViewById(R.id.tv_temp)
+        textViewCity = findViewById(R.id.tv_city)
+        textViewRain = findViewById(R.id.tv_raining)
+        textViewSnow = findViewById(R.id.tv_snowing)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         Log.e("lat", weatherUrl)
 
-        var weatherButton: Button = findViewById(R.id.button_getweather)
+        obtainLocation()
+
+        val weatherButton: Button = findViewById(R.id.button_getweather)
 
         weatherButton.setOnClickListener {
             Log.e(TAG, "onCreate: onClick")
@@ -53,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getTemp(){
         val queue = Volley.newRequestQueue(this)
         val url: String = weatherUrl
@@ -70,9 +79,18 @@ class MainActivity : AppCompatActivity() {
                 val obj2 = arr.getJSONObject(0)
                 Log.e(TAG, "getTemp: ${obj2.toString()}")
 
-                textViewWeather.text = obj2.getString("temp") + " deg Celsius in " + obj2.getString("city_name")
+                val obj3 = obj2.getJSONObject("weather")
+                Log.e(TAG, "getTemp: ${obj3.toString()}")
+
+                val obj4 = obj3.getString("description")
+                Log.e(TAG, "getTemp: ${obj4.toString()}")
+
+                textViewTemp.text = obj2.getString("temp") + "℃"
+                textViewCity.text = obj2.getString("city_name")
+                textViewRain.text = obj4.toString()
+                textViewSnow.text = obj2.getString("snow")
             },
-            { textViewWeather!!.text = "That did not work!" })
+            { textViewTemp.text = "That did not work!" })
 
         queue.add(stringReq)
     }

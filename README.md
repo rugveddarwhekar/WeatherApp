@@ -6,12 +6,13 @@ A basic weather app that shows weather based on the device location using GPS
 - [Volley](https://google.github.io/volley/)
 
 ### Current Features
-- Shows Temprature on request
-
-### Upcoming Features
-- Detailed weather data (precipitaion, humidity, sunrise/sunset, etc.)
+- Shows Temperature on request
+- Detailed weather data (precipitation, humidity, sunrise/sunset, etc.)
 - Data should be presented as soon as the app is launched
 - User should be able to refresh the data
+
+### Upcoming Features
+
 - Custom/Different location data
 - Much better UI
-- Differnt background based on the weather
+- Different background based on the weather

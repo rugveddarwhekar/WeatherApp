@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textViewWeather: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -16,3 +16,4 @@ A basic weather app that shows weather based on the device location using GPS
 
 - Custom/Different location data
 - Much better UI
+- Refresh animation
